@@ -21,6 +21,52 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
+  Product Product[]
+  Participant Participant[]
+
  @@unique([username])
  @@map("users")
+}
+
+
+model Participant {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  status    StatusParticipants   @default(Undecided) @map("status")
+  price     String   @map("price")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  User User @relation(fields: [userId], references: [id])
+  Product Product[]
+ @@map("participants")
+}
+
+model Product {
+  id              Int      @id @default(autoincrement())
+  name            String   @map("name")
+  image           String   @map("image")
+  price           String   @map("price")
+  status          StatusProducts   @default(Ongoing) @map("status")
+  description     String   @map("description")
+  owner           Int      @map("owner")
+  participant     Int      @map("participant")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @default(now()) @updatedAt @map("updated_at")
+
+  User User @relation(fields: [owner], references: [id])
+  Participant Participant @relation(fields: [participant], references: [id])
+
+ @@map("products")
+}
+
+enum StatusProducts {
+  Ongoing
+  Completed
+}
+
+enum StatusParticipants {
+  Win
+  Lose
+  Undecided
 }
