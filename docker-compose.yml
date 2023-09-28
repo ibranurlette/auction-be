@@ -19,8 +19,8 @@ services:
       dockerfile: Dockerfile.dev
     ports:
       - "3000:3000"
-    environment:
-      DATABASE_URL: mysql://root:password@localhost:3306/dev
+    # environment:
+    #   DATABASE_URL: mysql://root:password@localhost:3306/dev
     volumes:
       - ./:/app
       - /app/node_modules

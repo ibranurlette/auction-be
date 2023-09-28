@@ -5,7 +5,8 @@ import winstonDaily from 'winston-daily-rotate-file';
 import { LOG_DIR } from '@config';
 
 // logs dir
-const logDir: string = join(__dirname, LOG_DIR);
+// LOG_DIR is undefined, then i change LOG_DIR to the value : "../logs" 
+const logDir: string = join(__dirname, "../logs");
 
 if (!existsSync(logDir)) {
   mkdirSync(logDir);
